@@ -5,9 +5,65 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroMachine"
         mc:Ignorable="d"
-        Title="MacroMachine" Height="450" Width="800">
-	
-    <Grid>
-        
-    </Grid>
+        Title="MacroMachine" 
+		Width="300"
+		SizeToContent="Height"
+		Closed="Window_Closed">
+
+	<!-- Resource -->
+	<Window.Resources>
+		<Style x:Key="MacroButton" TargetType="Button">
+			<Setter Property="Height" Value="50"/>
+			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+		</Style>
+
+		<Style x:Key="SequenceMacro" TargetType="Button" BasedOn="{StaticResource MacroButton}">
+			<Setter Property="Background" Value="Red"/>
+		</Style>
+
+		<Style x:Key="SystemMacro" TargetType="Button" BasedOn="{StaticResource MacroButton}">
+			<Setter Property="Background" Value="Blue"/>
+		</Style>
+
+		<Style x:Key="MouseMacro" TargetType="Button" BasedOn="{StaticResource MacroButton}">
+			<Setter Property="Background" Value="Lime"/>
+			<Setter Property="IsEnabled" Value="False"/>
+		</Style>
+
+	</Window.Resources>
+
+	<!-- Wrap Grid -->
+	<Grid>
+		<StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
+			<Button Style="{StaticResource SequenceMacro}" Content="Hello world." Click="ButtonHelloWorld_Click"/>
+			<Button Style="{StaticResource SystemMacro}" Content="Enter" Click="ButtonEnter_Click"/>
+			
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+					<RowDefinition/>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+					<ColumnDefinition/>
+				</Grid.ColumnDefinitions>
+
+				<Button Grid.Row="0" Grid.Column="0" Style="{StaticResource MouseMacro}" Content="Left"/>
+				<Button Grid.Row="0" Grid.Column="2" Style="{StaticResource MouseMacro}" Content="Center"/>
+				<Button Grid.Row="0" Grid.Column="4" Style="{StaticResource MouseMacro}" Content="Right"/>
+
+				<Button Grid.Row="2" Grid.Column="2" Style="{StaticResource MacroButton}" Content="Mouse" IsEnabled="False"/>
+				<Button Grid.Row="1" Grid.Column="2" Style="{StaticResource MouseMacro}" Content="↑" Click="ButtonUp_Click"/>
+				<Button Grid.Row="2" Grid.Column="1" Style="{StaticResource MouseMacro}" Content="←" Click="ButtonLeft_Click"/>
+				<Button Grid.Row="2" Grid.Column="3" Style="{StaticResource MouseMacro}" Content="→" Click="ButtonRight_Click"/>
+				<Button Grid.Row="3" Grid.Column="2" Style="{StaticResource MouseMacro}" Content="↓" Click="ButtonDown_Click"/>
+			</Grid>
+			
+		</StackPanel>
+	</Grid>
 </Window>
