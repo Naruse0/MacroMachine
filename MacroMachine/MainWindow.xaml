@@ -9,7 +9,8 @@
 		Width="300"
 		SizeToContent="Height"
 		ResizeMode="NoResize"
-		Loaded="Window_Loaded">
+		Loaded="Window_Loaded"
+		Closed="Window_Closed">
 
 	<!-- Resource -->
 	<Window.Resources>
@@ -36,7 +37,7 @@
 	<!-- Wrap Grid -->
 	<Grid>
 		<StackPanel>
-			<TextBlock Name="textBox1" Height="100" Text="Sample"/>
+			<TextBlock Name="textBox1" Height="100" Text="-- Press button1 to start --"/>
 			<Button Content="button1" Click="Button_Click"/>
 		</StackPanel>
 		

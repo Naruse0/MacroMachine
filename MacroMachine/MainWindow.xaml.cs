@@ -35,35 +35,42 @@ namespace MacroMachine
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
 		{
-			MouseHook.AddEvent(HookFunc);
 		}
 
-		public void HookFunc(ref MouseHook.StateMouse s)
+		private void Window_Closed(object sender, EventArgs e)
 		{
-			string RET = "\r\n";
-			textBox1.Text = "";
-			textBox1.Text += "BUTTON   : " + s.Stroke.ToString() + RET;
-			textBox1.Text += "POSITION : " + s.X + "," + s.Y + RET;
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
 		{
-			if (MouseHook.IsHooking)
+			if(MouseHook.IsHooking)
 			{
-				if (MouseHook.IsPaused)
-				{
-					MouseHook.UnPause();
-				}
-				else
-				{
-					MouseHook.Pause();
-				}
+				MouseHook.Stop();
+				textBox1.Text = "-- Stop --";
 			}
 			else
 			{
+				MouseHook.AddEvent(ExecMouseHook);
 				MouseHook.Start();
 			}
 		}
+
+		//----------------------------------------------------------
+		// フックするメソッド
+		//----------------------------------------------------------
+
+		/// <summary>
+		/// マウスフック時に実行するメソッド
+		/// </summary>
+		public void ExecMouseHook(ref MouseHook.MouseState s)
+		{
+			string Ret = "\r\n";
+			textBox1.Text = "";
+			textBox1.Text += "Stroke   : " + s.Stroke.ToString() + Ret;
+			textBox1.Text += "Position : " + s.X + ", " + s.Y + Ret;
+		}
+
+
 
 	}
 }
