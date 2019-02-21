@@ -13,5 +13,6 @@
   <dd>開発用ブランチ</dd>
   <dt>feature</dt>
   <dd>機能を実装するブランチ</dd>
+  <dd>実装が終わり次第削除</dd>
   <dd>命名規則 : feacture/機能名</dd>
 </dl>
