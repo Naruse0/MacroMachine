@@ -84,7 +84,8 @@ namespace MacroMachine
 		{
 			public Stroke       Stroke;
 			public uint         RawKey;     // Forms.Keys (KBDLLHOOKSTRUCTから送られてくるキーコード)
-			public Key          Key;		// RawKeyをWPFように変換したもの
+			public Key          Key;        // RawKeyをWPFように変換したもの
+			public List<Key>    Keys;		// 押されている通常キーを保持する
 			public uint         ScanCode;
 			public uint         Flags;
 			public uint         Time;
@@ -147,6 +148,9 @@ namespace MacroMachine
 			if (IsHooking) { return; }
 			IsHooking = true;
 
+			// インスタンス化
+			State.Keys = new List<Key>();
+
 			// ウィンドウのハンドルインスタンスを取得
 			IntPtr h = Marshal.GetHINSTANCE(typeof(KeyboardHook).Assembly.GetModules()[0]);
 
@@ -181,6 +185,9 @@ namespace MacroMachine
 				// 初期化
 				HookHandle = IntPtr.Zero;
 				RegisteredHookCallback -= HookProcedure;
+
+				// インスタンス削除
+				State.Keys = null;
 			}
 		}
 
@@ -242,6 +249,8 @@ namespace MacroMachine
 				State.Time = s.time;
 				State.ExtraInfo = s.dwExtraInfo;
 
+				// 更新
+				UpdateKeys(ref State, State.Stroke, State.Key);
 
 				// 登録されているイベントを実行
 				HookEvent(ref State);
@@ -282,6 +291,35 @@ namespace MacroMachine
 
 				default:
 					return Stroke.Unknown;
+			}
+		}
+
+		/// <summary>
+		/// キーの同時押し情報を更新する
+		/// </summary>
+		/// <param name="state">代入先</param>
+		/// <param name="stroke">キーのストローク状態</param>
+		/// <param name="key">ストロークされたキー</param>
+		private static void UpdateKeys(ref KeyboardState state, Stroke stroke, Key key)
+		{
+			switch (stroke)
+			{
+				case Stroke.KeyDown:
+				case Stroke.SyskeyDown:
+					// キーリピートを無視
+					if (!state.Keys.Contains(key))
+					{
+						state.Keys.Add(key);
+					}
+					break;
+
+				case Stroke.KeyUp:
+				case Stroke.SyskeyUp:
+					state.Keys.RemoveAll((Key k) => { return k == key; });
+					break;
+
+				default:
+					return;
 			}
 		}
 	}

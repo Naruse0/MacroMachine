@@ -98,6 +98,22 @@ namespace MacroMachine
 			textBox2.Text += "RawKey   : " + s.RawKey + Ret;
 			textBox2.Text += "Key      : " + s.Key.ToString() + Ret;
 			textBox2.Text += "Key(int) : " + (int)s.Key + Ret;
+			textBox2.Text += Ret;
+
+			// 全キーの表示
+			textBox2.Text += "Keys     : ";
+			foreach(var key in s.Keys)
+			{
+				textBox2.Text += key.ToString() + " + ";
+			}
+
+			// 最後の+が表示されないように整形
+			int index = textBox2.Text.LastIndexOf('+');
+			if (index > 0)
+			{
+				textBox2.Text = textBox2.Text.Substring(0, index);
+			}
+			textBox2.Text += Ret;
 		}
 
 	}
