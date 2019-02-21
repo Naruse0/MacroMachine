@@ -38,7 +38,9 @@
 	<Grid>
 		<StackPanel>
 			<TextBlock Name="textBox1" Height="100" Text="-- Press button1 to start --"/>
-			<Button Content="button1" Click="Button_Click"/>
+			<TextBlock Name="textBox2" Height="100" Text="-- Press button2 to start --"/>
+			<Button Content="MouseHook" Click="Button_Click" Focusable="False"/>
+			<Button Content="Keyboard" Click="ButtonKey_Click" Focusable="False"/>
 		</StackPanel>
 		
 	</Grid>

@@ -46,12 +46,29 @@ namespace MacroMachine
 			if(MouseHook.IsHooking)
 			{
 				MouseHook.Stop();
-				textBox1.Text = "-- Stop --";
+				textBox1.Text = textBox2.Text = "-- Stop --";
+
 			}
 			else
 			{
 				MouseHook.AddEvent(ExecMouseHook);
 				MouseHook.Start();
+			}
+		}
+
+
+		private void ButtonKey_Click(object sender, RoutedEventArgs e)
+		{
+			if (KeyboardHook.IsHooking)
+			{
+				KeyboardHook.Stop();
+				textBox2.Text = textBox2.Text = "-- Stop --";
+
+			}
+			else
+			{
+				KeyboardHook.AddEvent(ExecKeyboardHook);
+				KeyboardHook.Start();
 			}
 		}
 
@@ -70,7 +87,16 @@ namespace MacroMachine
 			textBox1.Text += "Position : " + s.X + ", " + s.Y + Ret;
 		}
 
-
+		/// <summary>
+		/// キーボードフック時に実行するメソッド
+		/// </summary>
+		public void ExecKeyboardHook(ref KeyboardHook.KeyboardState s)
+		{
+			string Ret = "\r\n";
+			textBox2.Text = "";
+			textBox2.Text += "Stroke   : " + s.Stroke.ToString() + Ret;
+			textBox2.Text += "Key      : " + s.Key;	
+		}
 
 	}
 }

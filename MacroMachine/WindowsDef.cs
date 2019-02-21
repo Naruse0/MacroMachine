@@ -12,6 +12,19 @@ namespace MacroMachine
 		// WindowsAPIのメッセージ
 		public enum WM
 		{
+			// キー操作関係
+			KEYFIRST		= 0x0100,
+			KEYDOWN			= 0x0100,
+			KEYUP			= 0x0101,
+			CHAR			= 0x0102,
+			DEADCHAR		= 0x0103,
+			SYSKEYDOWN		= 0x0104,
+			SYSKEYUP		= 0x0105,
+			SYSCHAR			= 0x0106,
+			SYSDEADCHAR		= 0x0107,
+			UNICHAR			= 0x0109,
+			KEYLAST			= 0x0109,
+
 			// マウス関係
 			SETCURSOR		= 0x0020,
 			MOUSEFIRST		= 0x0200,
