@@ -95,7 +95,9 @@ namespace MacroMachine
 			string Ret = "\r\n";
 			textBox2.Text = "";
 			textBox2.Text += "Stroke   : " + s.Stroke.ToString() + Ret;
-			textBox2.Text += "Key      : " + s.Key;	
+			textBox2.Text += "RawKey   : " + s.RawKey + Ret;
+			textBox2.Text += "Key      : " + s.Key.ToString() + Ret;
+			textBox2.Text += "Key(int) : " + (int)s.Key + Ret;
 		}
 
 	}

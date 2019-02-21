@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Runtime.InteropServices;
+using System.Windows.Input;
 
 namespace MacroMachine
 {
@@ -82,7 +83,8 @@ namespace MacroMachine
 		public struct KeyboardState
 		{
 			public Stroke       Stroke;
-			public uint         Key;		// TOOD : Windows.Forms.Keys を使いたい
+			public uint         RawKey;     // Forms.Keys (KBDLLHOOKSTRUCTから送られてくるキーコード)
+			public Key          Key;		// RawKeyをWPFように変換したもの
 			public uint         ScanCode;
 			public uint         Flags;
 			public uint         Time;
@@ -233,11 +235,13 @@ namespace MacroMachine
 			{
 				// メッセージから入力状態を取得
 				State.Stroke = GetStroke(msg);
-				State.Key = s.vkCode;
+				State.RawKey = s.vkCode;
+				State.Key = KeyInterop.KeyFromVirtualKey((int)s.vkCode);
 				State.ScanCode = s.scanCode;
 				State.Flags = s.flags;
 				State.Time = s.time;
 				State.ExtraInfo = s.dwExtraInfo;
+
 
 				// 登録されているイベントを実行
 				HookEvent(ref State);
