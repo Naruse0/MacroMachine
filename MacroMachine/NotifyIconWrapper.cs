@@ -31,8 +31,7 @@ namespace MacroMachine
 
 		private void toolStripMenuItem_Open_Click(object sender, EventArgs e)
 		{
-			var wnd = new MainWindow();
-			wnd.Show();
+			App.ShowWindow();
 		}
 
 		private void toolStripMenuItem_Exit_Click(object sender, EventArgs e)

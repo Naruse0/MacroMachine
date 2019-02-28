@@ -39,8 +39,13 @@ namespace MacroMachine
 		{
 		}
 
+		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+		{
+		}
+
 		private void Window_Closed(object sender, EventArgs e)
 		{
+			App.FinalizeWindow();
 		}
 
 		private void Button_Click(object sender, RoutedEventArgs e)
@@ -139,6 +144,5 @@ namespace MacroMachine
 			}
 			textBox2.Text += Ret;
 		}
-
 	}
 }

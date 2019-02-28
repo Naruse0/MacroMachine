@@ -15,8 +15,12 @@ namespace MacroMachine
 	/// </summary>
 	public partial class App : Application
 	{
-		private NotifyIconWrapper	notifyIcon;
+		/// <summary>
+		/// アプリケーション全体でウィンドウを管理する変数
+		/// </summary>
+		private static MainWindow	window;
 
+		private NotifyIconWrapper	notifyIcon;
 		private Mutex               mutex;
 
 		private void Application_Startup(object sender, StartupEventArgs e)
@@ -27,6 +31,10 @@ namespace MacroMachine
 			if (mutex.WaitOne(0, false))
 			{
 				this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+				// ウィンドウを生成
+				ShowWindow();
+
 				this.notifyIcon = new NotifyIconWrapper();
 			}
 			// 二重起動時
@@ -51,6 +59,27 @@ namespace MacroMachine
 				mutex.Close();
 			}
 
+		}
+
+
+		/// <summary>
+		/// ウィンドウの表示（生成）を行う
+		/// </summary>
+		public static void ShowWindow()
+		{
+			if(window == null)
+			{
+				window = new MainWindow();
+				window.Show();
+			}
+		}
+
+		/// <summary>
+		/// ウィンドウの終了処理
+		/// </summary>
+		public static void FinalizeWindow()
+		{
+			window = null;
 		}
 	}
 }
