@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
+using System.Threading;
+
 namespace MacroMachine
 {
 	/// <summary>
@@ -13,19 +15,42 @@ namespace MacroMachine
 	/// </summary>
 	public partial class App : Application
 	{
-		private NotifyIconWrapper notifyIcon;
+		private NotifyIconWrapper	notifyIcon;
 
-		protected override void OnStartup(StartupEventArgs e)
+		private Mutex               mutex;
+
+		private void Application_Startup(object sender, StartupEventArgs e)
 		{
-			base.OnStartup(e);
-			this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
-			this.notifyIcon = new NotifyIconWrapper();
+			mutex = new Mutex(false, "MacroMachineMutex");
+
+			// 一つ目の起動時
+			if (mutex.WaitOne(0, false))
+			{
+				this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+				this.notifyIcon = new NotifyIconWrapper();
+			}
+			// 二重起動時
+			else
+			{
+				MessageBox.Show("既に起動しています。", "Infomation", MessageBoxButton.OK, MessageBoxImage.Information);
+
+				mutex.Close();
+				mutex = null;
+				this.Shutdown();
+			}
 		}
 
-		protected override void OnExit(ExitEventArgs e)
+		private void Application_Exit(object sender, ExitEventArgs e)
 		{
-			base.OnExit(e);
 			this.notifyIcon.Dispose();
+
+			// Mutexの解放処理
+			if(mutex != null)
+			{
+				mutex.ReleaseMutex();
+				mutex.Close();
+			}
+
 		}
 	}
 }
