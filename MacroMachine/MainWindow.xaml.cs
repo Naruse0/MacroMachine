@@ -19,6 +19,8 @@ using System.Threading;
 
 namespace MacroMachine
 {
+	using WindowsDef;
+
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml
 	/// </summary>
@@ -45,6 +47,7 @@ namespace MacroMachine
 		{
 			if(MouseHook.IsHooking)
 			{
+				MouseHook.RemoveEvent(ExecMouseHook);
 				MouseHook.Stop();
 				textBox1.Text = textBox2.Text = "-- Stop --";
 
@@ -61,6 +64,7 @@ namespace MacroMachine
 		{
 			if (KeyboardHook.IsHooking)
 			{
+				KeyboardHook.RemoveEvent(ExecKeyboardHook);
 				KeyboardHook.Stop();
 				textBox2.Text = textBox2.Text = "-- Stop --";
 
@@ -85,6 +89,26 @@ namespace MacroMachine
 			textBox1.Text = "";
 			textBox1.Text += "Stroke   : " + s.Stroke.ToString() + Ret;
 			textBox1.Text += "Position : " + s.X + ", " + s.Y + Ret;
+
+			if(s.Stroke == MouseHook.Stroke.LeftDown)
+			{
+				var inputs = new List<InputSimulator.INPUT>();
+				InputSimulator.AddKeyboardInput(ref inputs, KEYEVENTF.KEYDOWN, Key.A);
+				InputSimulator.SendInput(inputs);
+			}
+			else if(s.Stroke == MouseHook.Stroke.LeftUp)
+			{
+				var inputs = new List<InputSimulator.INPUT>();
+				InputSimulator.AddKeyboardInput(ref inputs, KEYEVENTF.KEYUP, Key.A);
+				InputSimulator.SendInput(inputs);
+			}
+
+			if (s.Stroke == MouseHook.Stroke.RightDown)
+			{
+				var inputs = new List<InputSimulator.INPUT>();
+				InputSimulator.AddKeyboardInput(ref inputs, "AIEUO aiueo 0123456789");
+				InputSimulator.SendInput(inputs);
+			}
 		}
 
 		/// <summary>

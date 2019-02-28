@@ -115,11 +115,6 @@ namespace MacroMachine
 		public static bool IsHooking { get; private set; }
 
 		/// <summary>
-		/// 入力を破棄するかどうか（次のプロシージャへ渡さなくする）
-		/// </summary>
-		public static bool WillDiscard { get; private set; }
-
-		/// <summary>
 		/// マウスの状態を保持する
 		/// </summary>
 		public static MouseState State;
@@ -128,6 +123,11 @@ namespace MacroMachine
 		/// フックプロシージャ内のイベント用デリゲート
 		/// </summary>
 		public delegate void HookHandler(ref MouseState state);
+
+		/// <summary>
+		/// 入力を破棄するかどうか（次のプロシージャへ渡さなくする）
+		/// </summary>
+		private static bool WillDiscard;
 
 		/// <summary>
 		/// フックプロシージャのハンドル
@@ -176,7 +176,7 @@ namespace MacroMachine
 
 			// ハンドル取得失敗時
 			if (HookHandle == IntPtr.Zero)
-			{
+			{ 
 				IsHooking = false;
 				throw new System.ComponentModel.Win32Exception();
 			}
@@ -200,6 +200,14 @@ namespace MacroMachine
 				HookHandle = IntPtr.Zero;
 				RegisteredHookCallback -= HookProcedure;
 			}
+		}
+
+		/// <summary>
+		/// 入力を破棄する
+		/// </summary>
+		public static void Discard()
+		{
+			WillDiscard = true;
 		}
 
 		/// <summary>

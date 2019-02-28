@@ -52,5 +52,67 @@ namespace MacroMachine
 			KEYBOARD_LL		= 13,
 			MOUSE_LL		= 14
 		}
+
+		/// <summary>
+		/// https://docs.microsoft.com/en-us/windows/desktop/api/winuser/ns-winuser-taginput
+		/// </summary>
+		public enum INPUTTYPE
+		{
+			MOUSE		= 0,
+			KEYBOARD	= 1,
+			HARDWARE	= 2,
+		}
+
+		/// <summary>
+		/// https://docs.microsoft.com/en-us/windows/desktop/api/winuser/ns-winuser-tagmouseinput
+		/// </summary>
+		public enum MOUSEEVENTF
+		{
+			// 分からない（？）
+			ABSOLUTE		= 0x8000,
+			VIRTUALDESK		= 0x4000,
+
+			// ボタン関係
+			MOVE			= 0x0001,
+			MOVE_NOCOALESCE	= 0x2000,
+			LEFTDOWN		= 0x0002,
+			LEFTUP			= 0x0004,
+			RIGHTDOWN		= 0x0008,
+			RIGHTUP			= 0x0010,
+			MIDDLEDOWN		= 0x0020,
+			MIDDLEUP		= 0x0040,
+			XDOWN			= 0x0080,
+			XUP				= 0x0100,
+
+			// ホイール
+			WHEEL			= 0x0800,
+			HWHEEL			= 0x1000
+		}
+
+		/// <summary>
+		/// https://docs.microsoft.com/en-us/windows/desktop/api/winuser/ns-winuser-tagkeybdinput
+		/// </summary>
+		public enum KEYEVENTF 
+		{
+			// 入力動作
+			KEYDOWN		= 0x0000,
+			KEYUP		= 0x0002,
+
+			// わからない（？）
+			EXTENDEDKEY	= 0x0001,
+			SCANCODE	= 0x0008,
+			UNICODE		= 0x0004
+		}
+
+		/// <summary>
+		/// https://docs.microsoft.com/en-us/windows/desktop/api/winuser/nf-winuser-mapvirtualkeya
+		/// </summary>
+		public enum MAPVK
+		{
+			VK_TO_VSC		= 0,
+			VSC_TO_VK		= 1,
+			VK_TO_CHAR		= 2,
+			VSC_TO_VK_EX	= 3
+		}
 	}
 }

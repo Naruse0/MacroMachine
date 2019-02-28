@@ -98,11 +98,6 @@ namespace MacroMachine
 		public static bool IsHooking { get; private set; }
 
 		/// <summary>
-		/// 入力を破棄するかどうか（次のプロシージャへ渡さなくする）
-		/// </summary>
-		public static bool WillDiscard { get; private set; }
-
-		/// <summary>
 		/// キーボードの状態を保持する
 		/// </summary>
 		public static KeyboardState State;
@@ -111,6 +106,11 @@ namespace MacroMachine
 		/// フックプロシージャ内のイベント用デリゲート
 		/// </summary>
 		public delegate void HookHandler(ref KeyboardState state);
+
+		/// <summary>
+		/// 入力を破棄するかどうか（次のプロシージャへ渡さなくする）
+		/// </summary>
+		private static bool WillDiscard;
 
 		/// <summary>
 		/// フックプロシージャのハンドル
@@ -189,6 +189,14 @@ namespace MacroMachine
 				// インスタンス削除
 				State.Keys = null;
 			}
+		}
+
+		/// <summary>
+		/// 入力を破棄する
+		/// </summary>
+		public static void Discard()
+		{
+			WillDiscard = true;
 		}
 
 		/// <summary>
