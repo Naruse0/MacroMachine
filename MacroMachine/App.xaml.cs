@@ -55,7 +55,7 @@ namespace MacroMachine
 			// Mutexの解放処理
 			if(mutex != null)
 			{
-				mutex.ReleaseMutex();
+				mutex.ReleaseMutex(); 
 				mutex.Close();
 			}
 
@@ -71,6 +71,10 @@ namespace MacroMachine
 			{
 				window = new MainWindow();
 				window.Show();
+			}
+			else
+			{
+				window.Focus();
 			}
 		}
 

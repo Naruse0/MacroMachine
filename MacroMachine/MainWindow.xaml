@@ -6,8 +6,7 @@
         xmlns:local="clr-namespace:MacroMachine"
         mc:Ignorable="d"
         Title="MacroMachine" 
-		Width="300"
-		SizeToContent="Height"
+		SizeToContent="WidthAndHeight"
 		ResizeMode="NoResize"
 		Loaded="Window_Loaded"
 		Closing="Window_Closing"
@@ -15,34 +14,59 @@
 
 	<!-- Resource -->
 	<Window.Resources>
-		<Style x:Key="MacroButton" TargetType="Button">
+		<Style x:Key="KeyButtonStyle" TargetType="Button">
 			<Setter Property="Height" Value="50"/>
-			<Setter Property="HorizontalAlignment" Value="Stretch"/>
+			<Setter Property="Width" Value="50"/>
+			<Setter Property="FontSize" Value="20"/>
 		</Style>
 
-		<Style x:Key="SequenceMacro" TargetType="Button" BasedOn="{StaticResource MacroButton}">
-			<Setter Property="Background" Value="Red"/>
+		<Style x:Key="AlphaButtonStyle" TargetType="Button" BasedOn="{StaticResource KeyButtonStyle}">
+			<Setter Property="Background" Value="LightGray"/>
 		</Style>
-
-		<Style x:Key="SystemMacro" TargetType="Button" BasedOn="{StaticResource MacroButton}">
-			<Setter Property="Background" Value="Blue"/>
-		</Style>
-
-		<Style x:Key="MouseMacro" TargetType="Button" BasedOn="{StaticResource MacroButton}">
-			<Setter Property="Background" Value="Lime"/>
-			<Setter Property="IsEnabled" Value="False"/>
-		</Style>
-
 	</Window.Resources>
 
 	<!-- Wrap Grid -->
 	<Grid>
-		<StackPanel>
-			<TextBlock Name="textBox1" Height="100" Text="-- Press MouseHook to start --"/>
-			<TextBlock Name="textBox2" Height="200" Text="-- Press KeyboardHook to start --" TextWrapping="Wrap"/>
-			<Button Content="MouseHook" Click="Button_Click" Focusable="False"/>
-			<Button Content="KeyboardHook" Click="ButtonKey_Click" Focusable="False"/>
-		</StackPanel>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
 		
+		<StackPanel Grid.Row="0" Orientation="Horizontal">
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="Q"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="W"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="E"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="R"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="T"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="Y"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="U"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="I"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="O"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="P"/>
+		</StackPanel>
+
+		<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,0,0">
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="A"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="S"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="D"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="F"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="G"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="H"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="J"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="K"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="L"/>
+		</StackPanel>
+
+		<StackPanel Grid.Row="2" Orientation="Horizontal" Margin="40,0,0,0">
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="Z"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="X"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="C"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="V"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="B"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="N"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="M"/>
+		</StackPanel>
+
 	</Grid>
 </Window>
