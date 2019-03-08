@@ -4,14 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroMachine"
-				xmlns:vm="clr-namespace:MacroMachine"
+		xmlns:vm="clr-namespace:MacroMachine"
         mc:Ignorable="d"
         Title="MacroMachine" 
-				SizeToContent="WidthAndHeight"
-				ResizeMode="NoResize"
-				Loaded="Window_Loaded"
-				Closing="Window_Closing"
-				Closed="Window_Closed">
+		SizeToContent="WidthAndHeight"
+		ResizeMode="NoResize"
+		Loaded="Window_Loaded"
+		Closing="Window_Closing"
+		Closed="Window_Closed">
 
 	<!-- ビューモデル -->
 	<Window.DataContext>
@@ -24,7 +24,7 @@
 			<Setter Property="Height" Value="50"/>
 			<Setter Property="Width" Value="50"/>
 			<Setter Property="FontSize" Value="20"/>
-			<Setter Property="Command" Value="{Binding Path=RecordingCommand}"/>
+			<Setter Property="Command" Value="{Binding Path=ShowDetailCommand}"/>
 		</Style>
 
 		<Style x:Key="AlphaButtonStyle" TargetType="Button" BasedOn="{StaticResource KeyButtonStyle}">

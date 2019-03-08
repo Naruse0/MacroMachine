@@ -18,7 +18,7 @@ namespace MacroMachine
 	{
 		private DelegateCommand showDetailCommand;
 
-		public DelegateCommand RecordingCommand
+		public	DelegateCommand ShowDetailCommand
 		{
 			get
 			{
@@ -31,6 +31,10 @@ namespace MacroMachine
 		// Private
 		//----------------------------------------------------------
 
+		/// <summary>
+		/// 押されたキーのマクロ情報の詳細ウィンドウを表示する
+		/// </summary>
+		/// <param name="obj">Input.Keyの文字列</param>
 		private void showDetail(object obj)
 		{
 			if (obj == null) { return; }
@@ -41,7 +45,8 @@ namespace MacroMachine
 			// キーを取得し詳細ウィンドウを表示
 			if(Enum.TryParse<Key>(keyName, out key))
 			{
-				MainWindow.SelectMacro(key);
+				App.SelectMacro(key);
+				App.SelectedMacro.isShowedDetail = true;
 
 				var wnd = new DetailWindow();
 				wnd.Owner = App.Window;
@@ -54,17 +59,32 @@ namespace MacroMachine
 			}
 		}
 
+		/// <summary>
+		/// 詳細ウィンドウの表示状態を取得
+		/// </summary>
 		private bool isShowedDetail(object obj)
 		{
-			bool isNull = MainWindow.SelectedMacro == null;
-			bool isShowed = false;
+			if (obj == null) { return true; }
 
-			if (!isNull)
+			string  keyName = (string)obj;
+			Key     key;
+			bool	isShowed = false;
+
+			// キーを取得し詳細ウィンドウを表示
+			if (Enum.TryParse<Key>(keyName, out key))
 			{
-				isShowed = MainWindow.SelectedMacro.isShowedDetail;
+				if (App.Macros.ContainsKey(key))
+				{
+					isShowed = App.Macros[key].isShowedDetail;
+				}
+			}
+			// keyNameが不正な場合
+			else
+			{
+				System.Windows.MessageBox.Show("渡されたKeyの名前が正しくありません。(Parameter = " + keyName + ")");
 			}
 
-			return isNull && !isShowed;
+			return !isShowed;
 		}
 	}
 }

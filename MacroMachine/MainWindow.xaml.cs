@@ -26,11 +26,6 @@ namespace MacroMachine
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		/// <summary>
-		/// キーごとのマクロデータ
-		/// </summary>
-		public static SortedDictionary<Key, Model>	Macros;
-		public static Model                         SelectedMacro;
 
 		//----------------------------------------------------------
 		// WPF イベント
@@ -40,9 +35,10 @@ namespace MacroMachine
 		{
 			InitializeComponent();
 
-			// 初期化
-			Macros = new SortedDictionary<Key, Model>();
-			SelectedMacro = null;
+			if (System.ComponentModel.DesignerProperties.GetIsInDesignMode(this))
+			{
+				return;
+			}
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -51,7 +47,14 @@ namespace MacroMachine
 
 		private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
 		{
-			var rslt = MessageBox.Show("終了しますか？", "Question", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
+			string Ret = "\r\n";
+			string str = "";
+			str += "終了しますか？" + Ret;
+			str += "" + Ret;
+			str += "はい\t：アプリケーションを完全に終了します。" + Ret;
+			str += "いいえ\t：ウィンドウのみ閉じて、タスクバーに残ります。" + Ret;
+
+			var rslt = MessageBox.Show(str, "Question", MessageBoxButton.YesNoCancel, MessageBoxImage.Question, MessageBoxResult.Yes);
 			if(rslt == MessageBoxResult.Yes)
 			{
 				// 終了
@@ -77,14 +80,5 @@ namespace MacroMachine
 		// Public
 		//----------------------------------------------------------
 
-		public static void SelectMacro(Key k)
-		{
-			// キーがなければ追加
-			if (!Macros.ContainsKey(k))
-			{
-				Macros.Add(k, new Model());
-			}
-			SelectedMacro = Macros[k];
-		}
 	}
 }

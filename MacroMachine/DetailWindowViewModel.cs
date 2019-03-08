@@ -13,6 +13,7 @@ namespace MacroMachine
 		//----------------------------------------------------------
 
 		private DelegateCommand loadedCommand;
+		private DelegateCommand	closedCommand;
 		private DelegateCommand startCommand;
 		private DelegateCommand stopCommand;
 		private DelegateCommand clearCommand;
@@ -29,6 +30,14 @@ namespace MacroMachine
 			{
 				if (loadedCommand == null) { loadedCommand = new DelegateCommand(loaded); }
 				return loadedCommand;
+			}
+		}
+		public DelegateCommand ClosedCommand
+		{
+			get
+			{
+				if (closedCommand == null) { closedCommand = new DelegateCommand(closed); }
+				return closedCommand;
 			}
 		}
 		public DelegateCommand StartCommand
@@ -78,25 +87,29 @@ namespace MacroMachine
 			setRecordedKeyString();
 		}
 
+		private void closed(object obj)
+		{
+			App.SelectedMacro.isShowedDetail = false;
+			stop(obj);
+		}
+
 		private void start(object obj)
 		{
 			isRecording = true;
 			clear(null);
 
 			KeyboardHook.AddEvent(recording);
-			KeyboardHook.Start();
 		}
 
 		private void stop(object obj)
 		{
 			isRecording = false;
 			KeyboardHook.RemoveEvent(recording);
-			KeyboardHook.Stop();
 		}
 
 		private void clear(object obj)
 		{
-			MainWindow.SelectedMacro.keys.Clear();
+			App.SelectedMacro.keys.Clear();
 			setRecordedKeyString();
 		}
 
@@ -104,15 +117,19 @@ namespace MacroMachine
 		// Inner Method
 		//----------------------------------------------------------
 
+		/// <summary>
+		/// マクロのキーを登録する際に登録する関数
+		/// </summary>
+		/// <param name="state"></param>
 		private void recording(ref KeyboardHook.KeyboardState state)
 		{
-			if(MainWindow.SelectedMacro == null) { return; }
+			if(App.SelectedMacro == null) { return; }
 
 			// 押下したときのみ
 			if (state.Stroke == KeyboardHook.Stroke.KeyDown ||
 				state.Stroke == KeyboardHook.Stroke.SyskeyDown)
 			{
-				ref var macro = ref MainWindow.SelectedMacro;
+				ref var macro = ref App.SelectedMacro;
 
 				// 初めて押されたときのみ登録する
 				if (!macro.keys.Contains(state.Key))
@@ -128,10 +145,13 @@ namespace MacroMachine
 			KeyboardHook.Discard();
 		}
 
+		/// <summary>
+		/// 表示する文字列を設定する。
+		/// </summary>
 		private void setRecordedKeyString()
 		{
 			string str = "";
-			foreach (var k in MainWindow.SelectedMacro.keys)
+			foreach (var k in App.SelectedMacro.keys)
 			{
 				str += k.ToString() + " + ";
 			}
