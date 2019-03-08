@@ -44,7 +44,7 @@ namespace MacroMachine
 		{
 			get
 			{
-				if(startCommand == null) { startCommand = new DelegateCommand(start, (object obj) => !isRecording); }
+				if(startCommand == null) { startCommand = new DelegateCommand(start, (object obj) => !isRecording && !KeyboardHook.IsPause); }
 				return startCommand;
 			}
 		}

@@ -98,6 +98,11 @@ namespace MacroMachine
 		public static bool IsHooking { get; private set; }
 
 		/// <summary>
+		/// キーボードのグローバルフックをポーズしているかどうか
+		/// </summary>
+		public static bool IsPause { get; private set; }
+
+		/// <summary>
 		/// キーボードの状態を保持する
 		/// </summary>
 		public static KeyboardState State;
@@ -141,12 +146,13 @@ namespace MacroMachine
 
 
 		/// <summary>
-		/// マウスのグローバルフックを開始
+		/// グローバルフックを開始
 		/// </summary>
 		public static void Start()
 		{
 			if (IsHooking) { return; }
 			IsHooking = true;
+			IsPause = false;
 
 			// インスタンス化
 			State.Keys = new List<Key>();
@@ -169,7 +175,7 @@ namespace MacroMachine
 		}
 
 		/// <summary>
-		/// マウスのグローバルフックを終了
+		/// グローバルフックを終了
 		/// </summary>
 		public static void Stop()
 		{
@@ -178,6 +184,7 @@ namespace MacroMachine
 			if (HookHandle != IntPtr.Zero)
 			{
 				IsHooking = false;
+				IsPause = false;
 
 				// フックを解除
 				PlatformInvoke.UnhookWindowsHookEx(HookHandle);
@@ -189,6 +196,30 @@ namespace MacroMachine
 				// インスタンス削除
 				State.Keys = null;
 			}
+		}
+
+		/// <summary>
+		/// フックをポーズ
+		/// </summary>
+		public static void Pause()
+		{
+			IsPause = true;
+		}
+
+		/// <summary>
+		/// フックのポーズを解除
+		/// </summary>
+		public static void Unpause()
+		{
+			IsPause = false;
+		}
+
+		/// <summary>
+		/// フックのポーズのトグル
+		/// </summary>
+		public static void TogglePause()
+		{
+			IsPause = !IsPause;
 		}
 
 		/// <summary>
@@ -246,7 +277,7 @@ namespace MacroMachine
 		/// </summary>
 		private static IntPtr HookProcedure(int nCode, uint msg, ref PlatformInvoke.KBDLLHOOKSTRUCT s)
 		{
-			if (nCode >= 0 && HookEvent != null)
+			if (nCode >= 0 && HookEvent != null && !IsPause)
 			{
 				// メッセージから入力状態を取得
 				State.Stroke = GetStroke(msg);

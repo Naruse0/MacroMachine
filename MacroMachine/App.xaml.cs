@@ -164,7 +164,6 @@ namespace MacroMachine
 		/// <summary>
 		/// 指定したキーのマクロを選択
 		/// </summary>
-		/// <param name="k"></param>
 		public static void SelectMacro(Key k)
 		{
 			// キーがなければ追加

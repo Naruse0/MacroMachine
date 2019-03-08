@@ -115,6 +115,11 @@ namespace MacroMachine
 		public static bool IsHooking { get; private set; }
 
 		/// <summary>
+		/// マウスのグローバルフックをポーズしているかどうか
+		/// </summary>
+		public static bool IsPause { get; private set; }
+
+		/// <summary>
 		/// マウスの状態を保持する
 		/// </summary>
 		public static MouseState State;
@@ -164,6 +169,7 @@ namespace MacroMachine
 		{
 			if (IsHooking) { return; }
 			IsHooking = true;
+			IsPause = false;
 
 			// ウィンドウのハンドルインスタンスを取得
 			IntPtr h = Marshal.GetHINSTANCE(typeof(MouseHook).Assembly.GetModules()[0]);
@@ -192,6 +198,7 @@ namespace MacroMachine
 			if(HookHandle != IntPtr.Zero)
 			{
 				IsHooking = false;
+				IsPause = false;
 
 				// フックを解除
 				PlatformInvoke.UnhookWindowsHookEx(HookHandle);
@@ -200,6 +207,30 @@ namespace MacroMachine
 				HookHandle = IntPtr.Zero;
 				RegisteredHookCallback -= HookProcedure;
 			}
+		}
+
+		/// <summary>
+		/// フックをポーズ
+		/// </summary>
+		public static void Pause()
+		{
+			IsPause = true;
+		}
+
+		/// <summary>
+		/// フックのポーズを解除
+		/// </summary>
+		public static void Unpause()
+		{
+			IsPause = false;
+		}
+
+		/// <summary>
+		/// フックのポーズのトグル
+		/// </summary>
+		public static void TogglePause()
+		{
+			IsPause = !IsPause;
 		}
 
 		/// <summary>
@@ -258,7 +289,7 @@ namespace MacroMachine
 		/// </summary>
 		private static IntPtr HookProcedure(int nCode, uint msg, ref PlatformInvoke.MSLLHOOKSTRUCT s)
 		{
-			if (nCode >= 0 && HookEvent != null)
+			if (nCode >= 0 && HookEvent != null && !IsPause)
 			{
 				// メッセージから入力状態を取得
 				State.Stroke = GetStroke(msg, ref s);
