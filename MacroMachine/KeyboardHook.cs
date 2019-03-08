@@ -85,7 +85,7 @@ namespace MacroMachine
 			public Stroke       Stroke;
 			public uint         RawKey;     // Forms.Keys (KBDLLHOOKSTRUCTから送られてくるキーコード)
 			public Key          Key;        // RawKeyをWPFように変換したもの
-			public List<Key>    Keys;		// 押されている通常キーを保持する
+			public List<Key>    Keys;		// 押されているキーを保持する
 			public uint         ScanCode;
 			public uint         Flags;
 			public uint         Time;

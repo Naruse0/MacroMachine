@@ -4,13 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MacroMachine"
+				xmlns:vm="clr-namespace:MacroMachine"
         mc:Ignorable="d"
         Title="MacroMachine" 
-		SizeToContent="WidthAndHeight"
-		ResizeMode="NoResize"
-		Loaded="Window_Loaded"
-		Closing="Window_Closing"
-		Closed="Window_Closed">
+				SizeToContent="WidthAndHeight"
+				ResizeMode="NoResize"
+				Loaded="Window_Loaded"
+				Closing="Window_Closing"
+				Closed="Window_Closed">
+
+	<!-- ビューモデル -->
+	<Window.DataContext>
+		<vm:MainViewModel/>
+	</Window.DataContext>
 
 	<!-- Resource -->
 	<Window.Resources>
@@ -18,6 +24,7 @@
 			<Setter Property="Height" Value="50"/>
 			<Setter Property="Width" Value="50"/>
 			<Setter Property="FontSize" Value="20"/>
+			<Setter Property="Command" Value="{Binding Path=RecordingCommand}"/>
 		</Style>
 
 		<Style x:Key="AlphaButtonStyle" TargetType="Button" BasedOn="{StaticResource KeyButtonStyle}">
@@ -32,40 +39,40 @@
 			<RowDefinition/>
 			<RowDefinition/>
 		</Grid.RowDefinitions>
-		
+
 		<StackPanel Grid.Row="0" Orientation="Horizontal">
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="Q"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="W"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="E"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="R"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="T"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="Y"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="U"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="I"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="O"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="P"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="Q" CommandParameter="Q"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="W" CommandParameter="W"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="E" CommandParameter="E"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="R" CommandParameter="R"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="T" CommandParameter="T"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="Y" CommandParameter="Y"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="U" CommandParameter="U"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="I" CommandParameter="I"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="O" CommandParameter="O"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="P" CommandParameter="P"/>
 		</StackPanel>
 
 		<StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10,0,0,0">
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="A"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="S"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="D"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="F"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="G"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="H"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="J"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="K"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="L"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="A" CommandParameter="A"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="S" CommandParameter="S"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="D" CommandParameter="D"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="F" CommandParameter="F"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="G" CommandParameter="G"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="H" CommandParameter="H"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="J" CommandParameter="J"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="K" CommandParameter="K"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="L" CommandParameter="L"/>
 		</StackPanel>
 
 		<StackPanel Grid.Row="2" Orientation="Horizontal" Margin="40,0,0,0">
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="Z"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="X"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="C"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="V"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="B"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="N"/>
-			<Button Style="{StaticResource AlphaButtonStyle}" Content="M"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="Z" CommandParameter="Z"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="X" CommandParameter="X"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="C" CommandParameter="C"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="V" CommandParameter="V"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="B" CommandParameter="B"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="N" CommandParameter="N"/>
+			<Button Style="{StaticResource AlphaButtonStyle}" Content="M" CommandParameter="M"/>
 		</StackPanel>
 
 	</Grid>

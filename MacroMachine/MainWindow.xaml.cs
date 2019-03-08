@@ -26,6 +26,12 @@ namespace MacroMachine
 	/// </summary>
 	public partial class MainWindow : Window
 	{
+		/// <summary>
+		/// キーごとのマクロデータ
+		/// </summary>
+		public static SortedDictionary<Key, Model>	Macros;
+		public static Model                         SelectedMacro;
+
 		//----------------------------------------------------------
 		// WPF イベント
 		//----------------------------------------------------------
@@ -33,6 +39,10 @@ namespace MacroMachine
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			// 初期化
+			Macros = new SortedDictionary<Key, Model>();
+			SelectedMacro = null;
 		}
 
 		private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -64,23 +74,17 @@ namespace MacroMachine
 		}
 
 		//----------------------------------------------------------
-		// フックするメソッド
+		// Public
 		//----------------------------------------------------------
 
-		/// <summary>
-		/// マウスフック時に実行するメソッド
-		/// </summary>
-		public void ExecMouseHook(ref MouseHook.MouseState s)
+		public static void SelectMacro(Key k)
 		{
-		
-		}
-
-		/// <summary>
-		/// キーボードフック時に実行するメソッド
-		/// </summary>
-		public void ExecKeyboardHook(ref KeyboardHook.KeyboardState s)
-		{
-
+			// キーがなければ追加
+			if (!Macros.ContainsKey(k))
+			{
+				Macros.Add(k, new Model());
+			}
+			SelectedMacro = Macros[k];
 		}
 	}
 }

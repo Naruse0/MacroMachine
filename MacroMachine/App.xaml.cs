@@ -23,6 +23,11 @@ namespace MacroMachine
 		private NotifyIconWrapper	notifyIcon;
 		private Mutex               mutex;
 
+		public static MainWindow Window
+		{
+			get { return window; }
+		}
+
 		private void Application_Startup(object sender, StartupEventArgs e)
 		{
 			mutex = new Mutex(false, "MacroMachineMutex");
