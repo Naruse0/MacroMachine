@@ -12,6 +12,8 @@ namespace MacroMachine
 	using System.ComponentModel;
 	using System.Windows;
 
+	using Commons;
+
 	public partial class NotifyIconWrapper : Component
 	{
 		public NotifyIconWrapper()

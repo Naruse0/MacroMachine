@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MacroMachine
+namespace MacroMachine.ViewModels
 {
+	using Commons;
+
     class DetailWindowViewModel : ViewModelBase
     {
 		//----------------------------------------------------------

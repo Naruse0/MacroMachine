@@ -7,9 +7,10 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Input;
 
-namespace MacroMachine
+namespace MacroMachine.ViewModels
 {
-	using MacroMachine;
+	using Commons;
+	using Views;
 
 	/// <summary>
 	/// メインビューのビューモデル

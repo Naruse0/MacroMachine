@@ -17,9 +17,9 @@ using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using System.Threading;
 
-namespace MacroMachine
+namespace MacroMachine.Views
 {
-	using WindowsDef;
+	using Commons.WindowsDef;
 
 	/// <summary>
 	/// Interaction logic for MainWindow.xaml

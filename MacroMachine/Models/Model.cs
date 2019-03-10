@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace MacroMachine
+namespace MacroMachine.Models
 {
 	/// <summary>
 	/// データを管理するクラス

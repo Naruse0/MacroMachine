@@ -10,6 +10,11 @@ using System.Threading;
 
 namespace MacroMachine
 {
+	using Commons;
+	using Commons.WindowsDef;
+	using Models;
+	using Views;
+
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
@@ -193,12 +198,12 @@ namespace MacroMachine
 			// 押下状態を送信
 			foreach (var macroKey in Macros[k].keys)
 			{
-				InputSimulator.AddKeyboardInput(ref inputs, WindowsDef.KEYEVENTF.KEYDOWN, macroKey);
+				InputSimulator.AddKeyboardInput(ref inputs, KEYEVENTF.KEYDOWN, macroKey);
 			}
 			// 押上状態を創始音
 			foreach (var macroKey in Macros[k].keys)
 			{
-				InputSimulator.AddKeyboardInput(ref inputs, WindowsDef.KEYEVENTF.KEYUP, macroKey);
+				InputSimulator.AddKeyboardInput(ref inputs, KEYEVENTF.KEYUP, macroKey);
 			}
 
 			// キーを送信

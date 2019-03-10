@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 
-namespace MacroMachine
+namespace MacroMachine.Commons
 {
 	using WindowsDef;
 

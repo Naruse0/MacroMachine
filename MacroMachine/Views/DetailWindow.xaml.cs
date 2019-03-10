@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MacroMachine
+namespace MacroMachine.Views
 {
     /// <summary>
     /// Interaction logic for DetailWindow.xaml
