@@ -30,6 +30,7 @@
 		<Grid.RowDefinitions>
 			<RowDefinition/>
 			<RowDefinition/>
+			<RowDefinition/>
 		</Grid.RowDefinitions>
 
 		<TextBlock Text="{Binding Path=RecordedKeys}" FontSize="14pt" TextWrapping="WrapWithOverflow" Height="50"/>
@@ -38,6 +39,9 @@
 			<Button Content="Start" FontSize="16pt" Command="{Binding StartCommand}"/>
 			<Button Content="Stop" FontSize="16pt" Command="{Binding StopCommand}"/>
 		</StackPanel>
-        
+
+		<ComboBox Grid.Row="2" ItemsSource="{Binding BatInfos}" SelectedValuePath="Id" DisplayMemberPath="Name">
+		</ComboBox>
+		
     </Grid>
 </Window>

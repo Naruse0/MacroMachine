@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
 
 namespace MacroMachine.ViewModels
 {
 	using Commons;
+	using Models;
 
     class DetailWindowViewModel : ViewModelBase
     {
@@ -21,6 +23,9 @@ namespace MacroMachine.ViewModels
 		private DelegateCommand clearCommand;
 		private bool isRecording = false;
 		private string recordedKeys = "";
+
+		public ObservableCollection<BatInfo> batInfos;
+
 
 		//----------------------------------------------------------
 		// Indexer
@@ -80,6 +85,13 @@ namespace MacroMachine.ViewModels
 			}
 		}
 
+		public ObservableCollection<BatInfo> BatInfos
+		{
+			get { return batInfos; }
+			set { batInfos = value; RaisePropertyChanged("BatInfos"); }
+		}
+
+
 		//----------------------------------------------------------
 		// Private Method
 		//----------------------------------------------------------
@@ -87,6 +99,7 @@ namespace MacroMachine.ViewModels
 		private void loaded(object obj)
 		{
 			setRecordedKeyString();
+			BatInfos = App.batInfos;
 		}
 
 		private void closed(object obj)

@@ -24,10 +24,10 @@
 			<Setter Property="Height" Value="50"/>
 			<Setter Property="Width" Value="50"/>
 			<Setter Property="FontSize" Value="20"/>
-			<Setter Property="Command" Value="{Binding Path=ShowDetailCommand}"/>
 		</Style>
 
 		<Style x:Key="AlphaButtonStyle" TargetType="Button" BasedOn="{StaticResource KeyButtonStyle}">
+			<Setter Property="Command" Value="{Binding Path=ShowDetailCommand}"/>
 			<Setter Property="Background" Value="LightGray"/>
 		</Style>
 	</Window.Resources>
@@ -35,6 +35,7 @@
 	<!-- Wrap Grid -->
 	<Grid>
 		<Grid.RowDefinitions>
+			<RowDefinition/>
 			<RowDefinition/>
 			<RowDefinition/>
 			<RowDefinition/>
@@ -73,6 +74,9 @@
 			<Button Style="{StaticResource AlphaButtonStyle}" Content="B" CommandParameter="B"/>
 			<Button Style="{StaticResource AlphaButtonStyle}" Content="N" CommandParameter="N"/>
 			<Button Style="{StaticResource AlphaButtonStyle}" Content="M" CommandParameter="M"/>
+		</StackPanel>
+
+		<StackPanel Grid.Row="3" Orientation="Horizontal" Margin="0,10,0,0">
 		</StackPanel>
 
 	</Grid>

@@ -8,9 +8,9 @@ using System.Windows.Input;
 namespace MacroMachine.Models
 {
 	/// <summary>
-	/// データを管理するクラス
+	/// マクロ情報を保持するクラス
 	/// </summary>
-	public class Model
+	public class MacroInfo
 	{
 		// キーの登録先
 		public List<Key>	keys;
@@ -19,7 +19,7 @@ namespace MacroMachine.Models
 		/// <summary>
 		/// 初期化用コンストラクタ
 		/// </summary>
-		public Model()
+		public MacroInfo()
 		{
 			keys = new List<Key>();
 			isShowedDetail = false;
@@ -29,5 +29,14 @@ namespace MacroMachine.Models
 		/// キーが登録されているかどうか
 		/// </summary>
 		public bool IsRegistered {  get { return keys.Count > 0; } }
+	}
+
+	/// <summary>
+	/// 実行するBatファイルの情報を保持するクラス
+	/// </summary>
+	public class BatInfo
+	{
+		public int Id { get; set; }
+		public string Name { get; set; }
 	}
 }

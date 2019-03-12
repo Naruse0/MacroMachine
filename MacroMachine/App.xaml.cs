@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System.Threading;
+using System.Collections.ObjectModel;
 
 namespace MacroMachine
 {
@@ -38,12 +39,12 @@ namespace MacroMachine
 		/// <summary>
 		/// キーごとのマクロデータ
 		/// </summary>
-		public static SortedDictionary<Key, Model>  Macros;
+		public static SortedDictionary<Key, MacroInfo>  Macros;
 
 		/// <summary>
 		/// 選択されたキーの参照
 		/// </summary>
-		public static Model                         SelectedMacro;
+		public static MacroInfo                         SelectedMacro;
 
 		/// <summary>
 		/// マクロを実行する際のトリガーとなるキー
@@ -58,6 +59,11 @@ namespace MacroMachine
 		/// キー実行コマンドが押されているかどうか
 		/// </summary>
 		public static bool          isTriggered = false;
+
+		/// <summary>
+		/// 全Bat情報を保持する
+		/// </summary>
+		public static ObservableCollection<BatInfo>	batInfos;
 
 		//----------------------------------------------------------
 		// Indexer
@@ -78,8 +84,10 @@ namespace MacroMachine
 		public App()
 		{
 			// 初期化
-			Macros = new SortedDictionary<Key, Model>();
+			Macros = new SortedDictionary<Key, MacroInfo>();
 			SelectedMacro = null;
+
+			InitBatInfos();
 		}
 
 		/// <summary>
@@ -174,7 +182,7 @@ namespace MacroMachine
 			// キーがなければ追加
 			if (!Macros.ContainsKey(k))
 			{
-				Macros.Add(k, new Model());
+				Macros.Add(k, new MacroInfo());
 			}
 			SelectedMacro = Macros[k];
 		}
@@ -219,6 +227,19 @@ namespace MacroMachine
 		//----------------------------------------------------------
 		// Private
 		//----------------------------------------------------------
+	
+		/// <summary>
+		/// Bat情報を初期化
+		/// </summary>
+		private void InitBatInfos()
+		{
+			batInfos = new ObservableCollection<BatInfo>()
+			{
+				new BatInfo {Id = -1, Name= "----"},
+				new BatInfo {Id = 0, Name= "Hello"},
+				new BatInfo {Id = 1, Name= "GoodBye"}
+			};	
+		}
 
 		/// <summary>
 		/// コマンド実行トリガーキーが押されているかの状態を更新する
