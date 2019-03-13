@@ -23,5 +23,5 @@ namespace MacroMachine.Views
         {
             InitializeComponent();
         }
-    }
+	}
 }

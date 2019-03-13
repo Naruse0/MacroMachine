@@ -25,7 +25,7 @@ namespace MacroMachine.ViewModels
 		private string recordedKeys = "";
 
 		public ObservableCollection<BatInfo> batInfos;
-
+		public BatInfo selectedBatInfo;
 
 		//----------------------------------------------------------
 		// Indexer
@@ -88,7 +88,24 @@ namespace MacroMachine.ViewModels
 		public ObservableCollection<BatInfo> BatInfos
 		{
 			get { return batInfos; }
-			set { batInfos = value; RaisePropertyChanged("BatInfos"); }
+			set {
+				batInfos = value;
+				RaisePropertyChanged("BatInfos");
+			}
+		}
+		public BatInfo SelectedBatInfo
+		{
+			get { return selectedBatInfo; }
+			set
+			{
+				selectedBatInfo = value;
+				RaisePropertyChanged("SelectedBatInfo");
+
+				if (App.SelectedMacro != null)
+				{
+					App.SelectedMacro.batInfo = selectedBatInfo;
+				}
+			}
 		}
 
 
@@ -98,8 +115,10 @@ namespace MacroMachine.ViewModels
 
 		private void loaded(object obj)
 		{
-			setRecordedKeyString();
 			BatInfos = App.batInfos;
+
+			setRecordedKeyString();
+			SelectedBatInfo = App.SelectedMacro.batInfo;
 		}
 
 		private void closed(object obj)
@@ -126,6 +145,7 @@ namespace MacroMachine.ViewModels
 		{
 			App.SelectedMacro.keys.Clear();
 			setRecordedKeyString();
+
 		}
 
 		//----------------------------------------------------------

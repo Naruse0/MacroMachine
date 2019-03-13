@@ -224,21 +224,67 @@ namespace MacroMachine
 			KeyboardHook.Discard();
 		}
 
+		public void ExecuteBat(Key k)
+		{
+			// キーにマクロが登録されていない場合は無視
+			if (!Macros.ContainsKey(k)) { return; }
+
+			// BatInfoが登録されていない場合は無視
+			if (Macros[k].batInfo == null ||
+				Macros[k].batInfo.Id == -1) { return; }
+
+			// 実行情報を設定
+			var p = new System.Diagnostics.Process();
+			p.StartInfo.FileName = Macros[k].batInfo.Name;
+			p.StartInfo.Arguments = "";
+			p.StartInfo.CreateNoWindow = true;
+			p.StartInfo.WorkingDirectory = @"Resources/bat/";
+
+			// 実行
+			p.Start();
+		}
+
 		//----------------------------------------------------------
 		// Private
 		//----------------------------------------------------------
-	
+
 		/// <summary>
 		/// Bat情報を初期化
 		/// </summary>
 		private void InitBatInfos()
 		{
-			batInfos = new ObservableCollection<BatInfo>()
+			string		batPath = "Resources/bat";
+			string[]	rawbats = System.IO.Directory.GetFiles(batPath, "*.bat", System.IO.SearchOption.TopDirectoryOnly);
+			List<string> bats = new List<string>(rawbats);
+
+			batInfos = new ObservableCollection<BatInfo>();
+
+			// 未選択用の項目
+			batInfos.Add(new BatInfo() { Id = -1, Name = "-- None --", Path = "" });
+
+			// 取得したリストを追加
+			int index = 0;
+			foreach (string path in bats)
 			{
-				new BatInfo {Id = -1, Name= "----"},
-				new BatInfo {Id = 0, Name= "Hello"},
-				new BatInfo {Id = 1, Name= "GoodBye"}
-			};	
+				var info = new BatInfo();
+				info.Id = index;
+				info.Path = path;
+
+				string name = path.Substring(path.LastIndexOf('\\') + 1);
+				info.Name = name;
+
+				batInfos.Add(info);
+
+				index++;
+			}
+
+
+			//batInfos = new ObservableCollection<BatInfo>()
+			//{
+			//	new BatInfo {Id = -1, Name= "----"},
+			//	new BatInfo {Id = 0, Name= "Hello"},
+			//	new BatInfo {Id = 1, Name= "GoodBye"}
+			//};	
 		}
 
 		/// <summary>
@@ -277,6 +323,7 @@ namespace MacroMachine
 				if (curKey >= Key.A && curKey <= Key.Z)
 				{
 					ExecuteMacro(curKey);
+					ExecuteBat(curKey);
 				}
 			}
 		}
